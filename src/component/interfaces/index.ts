@@ -10,3 +10,16 @@ export interface IProduct {
     imageURL: string;
   };
 }
+
+export interface IKeyForm {
+  title:string;
+  description:string;
+  price:string;
+  imageURL:string;
+}
+export interface IFormInput {
+  id: string;
+  name: keyof IKeyForm;
+  label: string;
+  type: string;
+}

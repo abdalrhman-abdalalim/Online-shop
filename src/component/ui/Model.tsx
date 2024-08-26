@@ -21,15 +21,11 @@ const Model = ({isOpen,closeModel,title,children}: IProps) => {
         open={isOpen}
         onClose={closeModel}
         transition
-        className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0"
+        className=" flex-col fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0 "
       >
-        <DialogPanel className="max-w-lg space-y-4 bg-white p-12">
-          {title && <DialogTitle className="font-bold">{title}</DialogTitle>}
-          <p>
-            Are you sure you want to deactivate your account? All of your data
-            will be permanently removed.
-          </p>
-          <div className="flex gap-4">
+        <DialogPanel className="max-w-lg space-y-4 bg-white p-12 rounded-md shadow-md w-96">
+          {title && <DialogTitle className="font-bold text-gray-700 text-center text-3xl">{title}</DialogTitle>}
+          <div className="flex gap-4 justify-center">
             {children}
           </div>
         </DialogPanel>
