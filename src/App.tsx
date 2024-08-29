@@ -8,6 +8,9 @@ import Input from "./component/ui/Input";
 import { IKeyForm, IProduct } from "./component/interfaces/index";
 import { producValidation } from "./component/validation";
 import ErrorMsg from "./component/ui/ErrorMsg";
+import { colors } from "./component/data";
+import CircleColor from "./component/ui/CircleColor";
+import { v4 as uuid, v4 } from "uuid";
 function App() {
   /*-----State-----*/
   const [isOpen, setIsopen] = useState(true);
@@ -33,6 +36,10 @@ function App() {
     price: ""
 })
 
+const [products,setProducts]=useState(productList);
+
+const [tempColor,setTempColor]=useState<string[]>([]);
+console.log(tempColor)
   /*-----Handler-----*/
   const Validation: IKeyForm = {
     title: product.title,
@@ -67,16 +74,32 @@ function App() {
       return;
     }
 
-    console.log('successfuly submiting');
+    setProducts(prev=>[{...product,id:uuid(),colors:tempColor},...prev]);
+    setProduct(defaultProduct);
+    setTempColor([]);
+    closeModel();
   };
+  
   const onCancel=()=>{
     alert('Cancel');
     setProduct(defaultProduct);
   }
 
   /*-----Render-----*/
-  const renderProductList = productList.map((product) => (
+  const renderProductList = products.map((product) => (
     <ProductCard product={product} key={product.id} />
+  ));
+
+  const renderColorCircle = colors.map((color) => (
+    <CircleColor key={color} color={color} onClick={()=>{
+      if(tempColor.includes(color)){
+        setTempColor(perv=>perv.filter(itme=>itme!==color));
+        return;
+      }
+      else{
+        setTempColor(prev=>[...prev,color]);
+      }
+    }}/>
   ));
 
   const renderFormInputList = formInputList.map((input) => (
@@ -109,6 +132,15 @@ function App() {
       <Model isOpen={isOpen} closeModel={closeModel} title={"add New titel"}>
         <form className="space-y-3" onSubmit={submitHandler}>
           {renderFormInputList}
+          <div className="flex items-center space-x-1 mt-3 flex-wrap">
+            {renderColorCircle}
+          </div>
+          <div className="flex items-center space-x-1 mt-3 flex-wrap">
+            {tempColor.map(color=>(
+              <span className="rounded-md w-14 text-center p-1 text-white font-sans text-xs"
+               key={color} style={{backgroundColor:color}}>{color}</span>
+            ))}
+          </div>
 
           <div className="flex items-center space-x-3 mt-3">
             <Button

@@ -10,7 +10,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://images.pexels.com/photos/843227/pexels-photo-843227.jpeg?auto=compress&cs=tinysrgb&w=600",
     price: "40",
-    colors: [],
+    colors: ["#9f9b9b", "#574c4c"],
     category: {
       name: "NoteBooks",
       imageURL:
@@ -163,7 +163,6 @@ export const colors: string[] = [
   "#cfc45d",
   "#af5252",
   "#219b21",
-  "#999466",
 ];
 
 /* export const categories: ICategory[] = [
