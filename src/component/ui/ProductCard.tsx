@@ -6,9 +6,14 @@ import { colors } from "../data";
 import CircleColor from "./CircleColor";
 interface IProps {
   product : IProduct;
+  setEditProduct:(product:IProduct)=>void;
+  OpenModal:()=>void;
+  index:number;
+  setIndex:(value:number)=>void;
+  openConfirm:()=>void;
 }
 
-const ProductCard = ({product}: IProps) => {
+const ProductCard = ({OpenModal,index,setIndex,setEditProduct,product ,openConfirm}: IProps) => {
   const {title,description,imageURL, price,category,colors }=product;
 
   const renderColorCircle = colors.map((color) => (
@@ -17,6 +22,15 @@ const ProductCard = ({product}: IProps) => {
       color={color}
     />
   ));
+  const onEdit = () =>{
+    setEditProduct(product);
+    OpenModal();
+    setIndex(index);
+  }
+  const onConfirm = ()=>{
+    setEditProduct(product);
+    openConfirm();
+  }
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-md p-2 flex flex-col">
       <Image
@@ -28,13 +42,14 @@ const ProductCard = ({product}: IProps) => {
       <p>{txtSlicer(description)}</p>
 
       <div className="flex items-center space-x-1 mt-3 flex-wrap">
-        {renderColorCircle}
+        {!colors.length?<p>Not available colors!</p>:renderColorCircle}
       </div>
 
 
       <div className="flex justify-between items-center">
         <span className="text-indigo-800 font-bold">${price}</span>
         <div className="flex items-center justify-between">
+          <span className="p-2 text-sm font-bold">{category.name}</span>
           <Image
             imgSrc={category.imageURL}
             alt="product name"
@@ -45,14 +60,17 @@ const ProductCard = ({product}: IProps) => {
 
       <div className="flex mt-2 items-center justify-between space-x-2">
         <Button
-          className="bg-indigo-800 "
+          className="bg-indigo-800 p-2"
           onClick={() => {
-            alert("hello");
+            onEdit();
           }}
         >
           EDIT
         </Button>
-        <Button className="bg-red-700 w-full rounded-md text-white font-bold">
+        <Button className="bg-red-700 w-full p-2 rounded-md text-white font-bold"
+        onClick={()=>{
+          onConfirm();
+        }}>
           DELETE
         </Button>
       </div>

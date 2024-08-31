@@ -5,9 +5,8 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement> {}
 const Input = ({ ...rest }: IProps) => {
   return (
     <input
-      type="text"
+      className="block p-2 w-80 rounded-lg border shadow-md focus:ring-indigo-200 focus:border-indigo-500 focus:outline-none focus:ring-1"
       {...rest}
-      className="border-2 border-gray-300 shadow-md rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 h-9 w-full text-md p-4"
     />
   );
 };
