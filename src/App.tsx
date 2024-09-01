@@ -31,6 +31,13 @@ function App() {
       imageURL: "",
     },
   };
+  const defaultError = {
+    title: "",
+    description: "",
+    imageURL: "",
+    price: "",
+    colors: "",
+  }
 
   /*-----State-----*/
   const [isOpen, setIsopen] = useState(false);
@@ -42,13 +49,7 @@ function App() {
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [index, setIndex] = useState<number>(0);
-  const [error, setError] = useState({
-    title: "",
-    description: "",
-    imageURL: "",
-    price: "",
-    colors: "",
-  });
+  const [error, setError] = useState(defaultError);
 
   /*-----Handler-----*/
   const Validation: IKeyForm = {
@@ -141,8 +142,10 @@ function App() {
     });
   };
   const onCancel = () => {
-    alert("Cancel");
+    closeModel();
     setProduct(defaultProduct);
+    setError(defaultError)
+    setTempColor([]);
   };
   const removeProductHandler = () =>{
     const filtered=products.filter(product=>product.id!==editProduct.id);
@@ -153,6 +156,9 @@ function App() {
       color:"white"
     }});
   }
+  const onCancelConfirm = () => {
+    closeConf();
+  };
 
   /*-----Render-----*/
   const renderProductList = products.map((product, index) => (
@@ -333,7 +339,7 @@ function App() {
               className={
                 "bg-gray-400 w-full rounded-md text-white font-bold hover:bg-gray-700"
               }
-              onClick={onCancel}
+              onClick={closeEditModel}
             >
               Cancel
             </Button>
@@ -369,7 +375,7 @@ function App() {
               className={
                 "bg-gray-400 w-full rounded-md p-2 text-white font-bold hover:bg-gray-700"
               }
-              onClick={onCancel}
+              onClick={onCancelConfirm}
             >
               Cancel
             </Button>

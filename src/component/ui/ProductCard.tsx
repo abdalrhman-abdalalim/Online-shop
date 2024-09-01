@@ -4,6 +4,7 @@ import { IProduct } from "../interfaces";
 import { txtSlicer } from "../utils/functinos";
 import { colors } from "../data";
 import CircleColor from "./CircleColor";
+import { calcPrice } from "../utils/functinos";
 interface IProps {
   product : IProduct;
   setEditProduct:(product:IProduct)=>void;
@@ -47,7 +48,7 @@ const ProductCard = ({OpenModal,index,setIndex,setEditProduct,product ,openConfi
 
 
       <div className="flex justify-between items-center">
-        <span className="text-indigo-800 font-bold">${price}</span>
+        <span className="text-indigo-800 font-bold">{calcPrice(price)}</span>
         <div className="flex items-center justify-between">
           <span className="p-2 text-sm font-bold">{category.name}</span>
           <Image

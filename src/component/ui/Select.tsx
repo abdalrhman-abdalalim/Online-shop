@@ -1,6 +1,6 @@
 "use client";
 
-import { useState ,memo } from "react";
+import { useState, memo } from "react";
 import {
   Label,
   Listbox,
@@ -12,14 +12,12 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { categories } from "../data";
 import { ICategory } from "../interfaces";
 
-
 interface IProps {
-  selected:{name:string,imageURL:string};
-  setSelected:(category:ICategory)=>void;
+  selected: { name: string; imageURL: string };
+  setSelected: (category: ICategory) => void;
 }
 
-
-const Select = ({selected,setSelected}:IProps) => {
+const Select = ({ selected, setSelected }: IProps) => {
   return (
     <Listbox value={selected} onChange={setSelected}>
       <Label className="block text-sm font-medium leading-3 text-black">
@@ -43,10 +41,7 @@ const Select = ({selected,setSelected}:IProps) => {
           </span>
         </ListboxButton>
 
-        <ListboxOptions
-          transition
-          className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
-        >
+        <ListboxOptions className="absolute z-10 mt-1 max-h-36 w-full overflow-y-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
           {categories.map((person) => (
             <ListboxOption
               key={person.id}
@@ -73,6 +68,6 @@ const Select = ({selected,setSelected}:IProps) => {
       </div>
     </Listbox>
   );
-}
+};
 
-export default memo(Select)
+export default memo(Select);
