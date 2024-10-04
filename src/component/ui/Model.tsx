@@ -1,6 +1,5 @@
-import { useState, ReactNode,Fragment } from "react";
-import { Dialog, Description, DialogPanel, DialogTitle, Transition } from "@headlessui/react";
-import Button from "./Button";
+import {  ReactNode, memo } from "react";
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
 interface IProps {
     isOpen : boolean;
@@ -35,4 +34,4 @@ const Model = ({isOpen,closeModel,title,children}: IProps) => {
     </>
   );
 };
-export default Model;
+export default memo(Model);

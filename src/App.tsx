@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useCallback } from "react";
 import "./App.css";
 import Model from "./component/ui/Model";
 import ProductCard from "./component/ui/ProductCard";
@@ -13,13 +13,13 @@ import {
 import { producValidation } from "./component/validation";
 import ErrorMsg from "./component/ui/ErrorMsg";
 import CircleColor from "./component/ui/CircleColor";
-import { v4 as uuid, v4 } from "uuid";
+import { v4 as uuid } from "uuid";
 import Select from "./component/ui/Select";
 import { colors } from "./component/data/index";
 import toast, { Toaster } from "react-hot-toast";
 
 
-function App() {
+function App(this: any) {
   const defaultProduct: IProduct = {
     title: "",
     description: "",
@@ -66,23 +66,23 @@ function App() {
     price: editProduct.price,
     colors: editProduct.colors[0],
   };
-  const closeModel = () => setIsopen(false);
-  const openModel = () => setIsopen(true);
-  const closeEditModel = () => setIsOpenEditModal(false);
-  const openEditModel = () => setIsOpenEditModal(true);
-  const openConf = () => setOpenConfirm(true);
+  const closeModel = useCallback( () => setIsopen(false),[]);
+  const openModel = useCallback(() => setIsopen(true),[]);
+  const closeEditModel = useCallback(() => setIsOpenEditModal(false),[]);
+  const openEditModel = useCallback(() => setIsOpenEditModal(true),[]);
+  const openConf = useCallback( () => setOpenConfirm(true),[]);
   const closeConf = () => setOpenConfirm(false);
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeHandler =useCallback( (event: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = event.target;
-    setProduct({
-      ...product,
+    setProduct((prev) => ({
+      ...prev,
       [name]: value,
-    });
-    setError({
-      ...error,
+    }));
+    setError((prev) => ({
+      ...prev,
       [name]: "",
-    });
-  };
+    }));
+  },[]);
   const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const errors = producValidation(Validation);

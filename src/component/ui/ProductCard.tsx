@@ -2,9 +2,9 @@ import Image from "./Image";
 import Button from "./Button";
 import { IProduct } from "../interfaces";
 import { txtSlicer } from "../utils/functinos";
-import { colors } from "../data";
 import CircleColor from "./CircleColor";
 import { calcPrice } from "../utils/functinos";
+import { memo } from "react";
 interface IProps {
   product : IProduct;
   setEditProduct:(product:IProduct)=>void;
@@ -78,4 +78,4 @@ const ProductCard = ({OpenModal,index,setIndex,setEditProduct,product ,openConfi
     </div>
   );
 };
-export default ProductCard;
+export default memo(ProductCard);

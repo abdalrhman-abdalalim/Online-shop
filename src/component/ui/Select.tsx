@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, memo } from "react";
+import { memo } from "react";
 import {
   Label,
   Listbox,
